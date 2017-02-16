@@ -152,21 +152,13 @@ Public Class PrintManager
 
         If tbdPartViewCheckbox.Checked Then
             If tbdPrinterComboBox.Text = "Bullzip PDF Printer" Then
-                If noPreview = True Then
-                    PrintTBDPDFPartView()
-                Else
-                    Dim newThread As New Thread(AddressOf GetPrintWindow)
-                    newThread.Start()
-                    PrintTBDPDFPartView()
-                End If
+                Dim newThread As New Thread(AddressOf GetPrintWindow)
+                newThread.Start()
+                PrintTBDPDFPartView()
             Else
-                If noPreview = True Then
-                    PrintPartView()
-                Else
-                    Dim newThread As New Thread(AddressOf GetPrintWindow)
-                    newThread.Start()
-                    PrintPartView()
-                End If
+                Dim newThread As New Thread(AddressOf GetPrintWindow)
+                newThread.Start()
+                PrintPartView()
             End If
         End If
 
@@ -383,17 +375,11 @@ Public Class PrintManager
         If settings.FastPrint = True Then
             FastPrintsLabel.Visible = True
             FastPrintButton.Visible = True
-            noPreview = True
+            noPreview = False
         Else
             FastPrintsLabel.Visible = False
             FastPrintButton.Visible = False
             noPreview = False
-        End If
-        If settings.PrintPreview = False Then
-            noPreview = False
-        End If
-        If settings.PrintPreview = True Then
-            noPreview = True
         End If
 
     End Sub
@@ -605,9 +591,15 @@ Public Class PrintManager
 
         If au3.WinActive("Print Setup") Then
             au3.ControlClick("Print Setup", "", "[CLASSNN:Button9]", "LEFT", 1)
+            If settings.PrintPreview = True Then
+                au3.ControlClick("Print Setup", "", "[CLASSNN:Button1]", "LEFT", 1)
+            End If
         Else
             au3.WinActivate("Print Setup")
             au3.ControlClick("Print Setup", "", "[CLASSNN:Button9]", "LEFT", 1)
+            If settings.PrintPreview = True Then
+                au3.ControlClick("Print Setup", "", "[CLASSNN:Button1]", "LEFT", 1)
+            End If
         End If
     End Sub
 

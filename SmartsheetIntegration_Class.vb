@@ -14,12 +14,14 @@ Public Class SmartSheetIntegration
         smartSheet = New SmartsheetBuilder().SetAccessToken(token.AccessToken).Build()
     End Sub
 
+    'Test Create Folder
     Public Sub CreateFolderHome(folderName As String)
         Dim folder As Folder
         folder = New Folder.CreateFolderBuilder(folderName).Build()
         folder = smartSheet.HomeResources.FolderResources.CreateFolder(folder)
     End Sub
 
+    'Test Create Workspace
     Public Sub CreateWorkSpace(workspaceName As String)
         Dim workspace As Workspace
         workspace = New Workspace.CreateWorkspaceBuilder(workspaceName).Build()
@@ -27,6 +29,7 @@ Public Class SmartSheetIntegration
     End Sub
 
 
+    'Get all sheets in given workspace
     Public Sub GetSheetsInWorkspace(workspaceID As Int64)
 
         Dim workspace As Workspace
@@ -51,6 +54,7 @@ Public Class SmartSheetIntegration
 
     End Sub
 
+    'Get the users rfd que
     Public Function GetUserRFD(workspaceID As Int64, sheetName As String)
 
         Dim workspace As Workspace
@@ -74,6 +78,7 @@ Public Class SmartSheetIntegration
 
     End Function
 
+    'Get the row in the sheet
     Public Function GetRow(workspaceID As Int64, sheetName As String, rowID As Long)
         Dim workspace As Workspace
         workspace = smartSheet.WorkspaceResources.GetWorkspace(workspaceID, Nothing, Nothing)
